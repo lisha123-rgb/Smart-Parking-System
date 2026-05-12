@@ -1,0 +1,295 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../images/parking-bg.jpg') center/cover;
+    opacity: 0.1;
+}
+
+.hero-image {
+    font-size: 15rem;
+    color: rgba(255, 255, 255, 0.8);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Feature Cards */
+.feature-card {
+    text-align: center;
+    padding: 2rem 1rem;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.feature-card h4 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+/* Step Cards */
+.step-card {
+    text-align: center;
+    padding: 2rem 1rem;
+    position: relative;
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background: var(--secondary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 auto 1rem;
+}
+
+/* Guidelines */
+.guidelines {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.guideline-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-left: 4px solid var(--success-color);
+    background: white;
+    margin-bottom: 1rem;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.guideline-item i {
+    color: var(--success-color);
+    margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+/* Auth Styles */
+.auth-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.toggle-buttons {
+    display: flex;
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn.active {
+    background: var(--secondary-color);
+    color: white;
+}
+
+/* Wallet Styles */
+.balance-card {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    color: white;
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+}
+
+/* Slot Cards */
+.slot-card {
+    background: white;
+    padding: 2rem 1rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 3px solid transparent;
+}
+
+.slot-card.available:hover {
+    transform: translateY(-5px);
+    border-color: var(--success-color);
+    box-shadow: 0 10px 30px rgba(39, 174, 96, 0.2);
+}
+
+.slot-card.booked {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.slot-icon {
+    font-size: 3rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.slot-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--success-color);
+    margin-top: 1rem;
+}
+
+/* Feedback Styles */
+.feedback-item {
+    transition: transform 0.3s ease;
+}
+
+.feedback-item:hover {
+    transform: translateX(5px);
+}
+
+/* History Page Styles */
+.stat-card {
+    background: white;
+    padding: 2rem 1rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.booking-row {
+    transition: all 0.3s ease;
+}
+
+.booking-row:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.01);
+}
+
+.empty-state {
+    padding: 4rem 2rem;
+}
+
+.empty-state i {
+    opacity: 0.5;
+}
+
+.table-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table th {
+    border-top: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-image {
+        font-size: 8rem;
+    }
+    
+    .display-4 {
+        font-size: 2.5rem;
+    }
+    
+    .slot-card {
+        margin-bottom: 1rem;
+    }
+    
+    .stat-card {
+        margin-bottom: 1rem;
+    }
+    
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+}
+
+/* Button Animations */
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-group .btn.active {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: white;
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

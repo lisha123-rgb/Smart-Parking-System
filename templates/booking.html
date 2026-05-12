@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Book Parking Slot{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bold">Book Your Parking Slot</h1>
+                <p class="lead">Select from available slots and book instantly</p>
+            </div>
+
+            <!-- Parking Slots -->
+            <div class="row g-4 mb-5">
+                {% for slot in ['A', 'B', 'C'] %}
+                <div class="col-md-4">
+                    <div class="slot-card {% if slot in booked_slots %}booked{% else %}available{% endif %}"
+                         {% if slot not in booked_slots %}data-bs-toggle="modal" data-bs-target="#bookingModal" 
+                         onclick="selectSlot('{{ slot }}')"{% endif %}>
+                        <div class="slot-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <h3>Slot {{ slot }}</h3>
+                        <div class="slot-status">
+                            {% if slot in booked_slots %}
+                            <span class="badge bg-danger">Booked</span>
+                            {% else %}
+                            <span class="badge bg-success">Available</span>
+                            {% endif %}
+                        </div>
+                        <div class="slot-price">₹50</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Booking Modal -->
+<div class="modal fade" id="bookingModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Book Slot <span id="selectedSlot"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="slot" id="slotInput">
+                    <div class="mb-3">
+                        <label class="form-label">Vehicle Number Plate</label>
+                        <input type="text" class="form-control" name="numberplate" 
+                               placeholder="Enter your vehicle number" required>
+                    </div>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        ₹50 will be deducted from your wallet for this booking.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Confirm Booking</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

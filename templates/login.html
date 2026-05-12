@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Login/Signup{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="auth-card">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold">Welcome</h2>
+                    <p class="text-muted">Sign in to your account or create a new one</p>
+                </div>
+
+                <!-- Toggle Buttons -->
+                <div class="toggle-buttons mb-4">
+                    <button class="toggle-btn active" onclick="showSignIn()">Sign In</button>
+                    <button class="toggle-btn" onclick="showSignUp()">Sign Up</button>
+                </div>
+
+                <!-- Sign In Form -->
+                <form id="signin-form" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Mobile Number</label>
+                        <input type="tel" class="form-control" name="mobile" placeholder="Enter your mobile number" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Enter your password" required>
+                    </div>
+                    <input type="hidden" name="action" value="signin">
+                    <button type="submit" class="btn btn-primary w-100">Sign In</button>
+                </form>
+
+                <!-- Sign Up Form -->
+                <form id="signup-form" method="POST" style="display: none;">
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" name="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Mobile Number</label>
+                        <input type="tel" class="form-control" name="mobile" placeholder="Enter your mobile number" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Create a password" required>
+                    </div>
+                    <input type="hidden" name="action" value="signup">
+                    <button type="submit" class="btn btn-success w-100">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

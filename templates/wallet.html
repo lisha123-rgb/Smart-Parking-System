@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Wallet{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <!-- Current Balance -->
+            <div class="balance-card text-center mb-4">
+                <h3>Current Balance</h3>
+                <h1 class="display-4 fw-bold text-primary">₹{{ "%.2f"|format(wallet.balance) }}</h1>
+                <p>Available for parking bookings</p>
+            </div>
+
+            <!-- Add Money Form -->
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Add Money to Wallet</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" onsubmit="return validateAmount()">
+                        <div class="mb-3">
+                            <label class="form-label">Amount (₹)</label>
+                            <input type="number" class="form-control" id="amount" name="amount" 
+                                   min="50" max="10000" step="10" placeholder="Enter amount" required>
+                            <div class="form-text">Minimum ₹50, Maximum ₹10,000</div>
+                            <div id="amountError" class="text-danger"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Add Money</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Quick Add Buttons -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Quick Add</h5>
+                    <div class="row g-2">
+                        <div class="col-6 col-md-3">
+                            <button class="btn btn-outline-primary w-100" onclick="setAmount(100)">₹100</button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <button class="btn btn-outline-primary w-100" onclick="setAmount(200)">₹200</button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <button class="btn btn-outline-primary w-100" onclick="setAmount(500)">₹500</button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <button class="btn btn-outline-primary w-100" onclick="setAmount(1000)">₹1000</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction Info -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Wallet Information</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Minimum Booking Amount:</span>
+                            <span class="fw-bold">₹50</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Maximum Wallet Balance:</span>
+                            <span class="fw-bold">₹10,000</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

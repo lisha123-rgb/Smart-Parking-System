@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}Booking History{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="display-5 fw-bold">Booking History</h1>
+            </div>
+
+            {% if bookings %}
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="bookingTable">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Booking ID</th>
+                                    <th>Slot</th>
+                                    <th>Vehicle Number</th>
+                                    <th>Booked Time</th>
+                                    <th>Entry Time</th>
+                                    <th>Exit Time</th>
+                                    <th>Status</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for booking in bookings %}
+                                <tr class="booking-row" data-status="{{ booking.status }}">
+                                    <td>
+                                        <strong>#{{ booking.id }}</strong>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-primary fs-6">Slot {{ booking.slot }}</span>
+                                    </td>
+                                    <td>
+                                        <code class="fs-6">{{ booking.numberplate }}</code>
+                                    </td>
+                                    <td>
+                                        <small>{{ booking.booked_time[:16] }}</small>
+                                    </td>
+                                    <td>
+                                        {% if booking.entry %}
+                                            <small>{{ booking.entry[:16] }}</small>
+                                        {% else %}
+                                            <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if booking.exit %}
+                                            <small>{{ booking.exit[:16] }}</small>
+                                        {% else %}
+                                            <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if booking.status == 'active' %}
+                                            <span class="badge bg-success">Active</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">Completed</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <strong class="text-success">₹{{ booking.amount }}</strong>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="row mt-4">
+                <div class="col-md-3">
+                    <div class="stat-card text-center">
+                        <div class="stat-number text-primary">{{ bookings|length }}</div>
+                        <div class="stat-label">Total Bookings</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card text-center">
+                        <div class="stat-number text-success">
+                            {{ bookings|selectattr('status', 'equalto', 'active')|list|length }}
+                        </div>
+                        <div class="stat-label">Active Bookings</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card text-center">
+                        <div class="stat-number text-secondary">
+                            {{ bookings|selectattr('status', 'equalto', 'completed')|list|length }}
+                        </div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card text-center">
+                        <div class="stat-number text-warning">₹{{ bookings|length * 50 }}</div>
+                        <div class="stat-label">Total Spent</div>
+                    </div>
+                </div>
+            </div>
+
+            {% else %}
+            <div class="text-center py-5">
+                <div class="empty-state">
+                    <i class="fas fa-history fa-4x text-muted mb-3"></i>
+                    <h3 class="text-muted">No Booking History</h3>
+                    <p class="text-muted">You haven't made any bookings yet.</p>
+                    <a href="{{ url_for('booking') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-bookmark"></i> Book Your First Slot
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function filterBookings(status) {
+    const rows = document.querySelectorAll('.booking-row');
+    
+    rows.forEach(row => {
+        if (status === 'all') {
+            row.style.display = '';
+        } else if (status === 'active') {
+            row.style.display = row.dataset.status === 'active' ? '' : 'none';
+        } else if (status === 'completed') {
+            row.style.display = row.dataset.status === 'completed' ? '' : 'none';
+        }
+    });
+    
+    // Update active button state
+    document.querySelectorAll('.btn-group .btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+}
+
+// Initialize table sorting
+document.addEventListener('DOMContentLoaded', function() {
+    // Add active class to All button
+    document.querySelector('.btn-group .btn').classList.add('active');
+});
+</script>
+{% endblock %}
